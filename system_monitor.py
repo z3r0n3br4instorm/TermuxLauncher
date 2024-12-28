@@ -2,36 +2,48 @@ import curses
 import psutil
 import subprocess
 import time
-import json
+import asyncio
 
 
-def get_gpu_usage():
+async def get_gpu_usage():
     try:
         return 3
     except:
         return 0
 
 
-def get_cell_signal():
+async def get_cell_signal():
     try:
         command = ["python", "signalStrength.py"]
         try:
-            result = subprocess.run(command, capture_output=True, text=True, check=True)
-            return int(float(result.stdout))
-        except:
+            result = await asyncio.create_subprocess_exec(*command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+            stdout, stderr = await result.communicate()
+            if result.returncode == 0:
+                return int(float(stdout))
+            else:
+                print(f"Error in signalStrength.py: {stderr}")
+                return 0
+        except Exception as e:
+            print(f"Error running signalStrength.py: {e}")
             return 0
-        return 0
-    except:
-        pass
+    except Exception as e:
+        print(f"Error in get_cell_signal: {e}")
     return 0
 
 
-def get_battery_percentage():
+async def get_battery_percentage():
     try:
-        result = subprocess.run(["python", "battery.py"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-        print(result)
-        return  int(result.stdout)
-    except:
+        command = ["python", "battery.py"]
+        result = await asyncio.create_subprocess_exec(*command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        stdout, stderr = await result.communicate()
+        print(f"Battery script output: {stdout}")  # Debug output
+        if result.returncode == 0:
+            return int(stdout.strip())
+        else:
+            print(f"Error in battery script: {stderr}")
+            return 0
+    except Exception as e:
+        print(f"Error in get_battery_percentage: {e}")
         return 0
 
 
@@ -47,31 +59,35 @@ def center_text(stdscr, text, row):
     stdscr.addstr(row, col, text)
 
 
-def main(stdscr):
-    # curses.curs_set(0)
-    # stdscr.clear()
+async def main_loop(stdscr):
+    curses.curs_set(0)
+    stdscr.clear()
 
     while True:
         # Get system metrics
         cpu_percent = psutil.cpu_percent(interval=0.1)
-        gpu_percent = get_gpu_usage()
+        gpu_percent = await get_gpu_usage()
         ram_percent = psutil.virtual_memory().percent
-        battery_percent = get_battery_percentage()
-        wifi_percent = get_cell_signal()
+        battery_percent = await get_battery_percentage()
+        wifi_percent = await get_cell_signal()
 
-        # center_text(stdscr, "HUD_SYSMON", 0)
+        center_text(stdscr, "HUD_SYSMON", 0)
 
-        # center_text(stdscr, f"CPU          : {draw_bar(cpu_percent)} ", 1)
-        # center_text(stdscr, f"GPU          : {draw_bar(gpu_percent)} ", 2)
-        # center_text(stdscr, f"RAM          : {draw_bar(ram_percent)} ", 3)
-        # center_text(stdscr, f"BATT         : {draw_bar(battery_percent)} ", 4)
-        # center_text(stdscr, f"CELL    : {draw_bar(wifi_percent)} ", 5)
+        # Display the bars and center each line
+        center_text(stdscr, f"CPU          : {draw_bar(cpu_percent)} ", 1)
+        center_text(stdscr, f"GPU          : {draw_bar(gpu_percent)} ", 2)
+        center_text(stdscr, f"RAM          : {draw_bar(ram_percent)} ", 3)
+        center_text(stdscr, f"BATT         : {draw_bar(battery_percent)} ", 4)
+        center_text(stdscr, f"CELL    : {draw_bar(wifi_percent)} ", 5)
 
-        # stdscr.refresh()
-        # time.sleep(1)
-        print(cpu_percent, gpu_percent, ram_percent, battery_percent, wifi_percent)
-        time.sleep(1)
+        stdscr.refresh()
+
+        await asyncio.sleep(1)
+
+
+def run_curses():
+    asyncio.run(curses.wrapper(main_loop))
 
 
 if __name__ == "__main__":
-    curses.wrapper(main)
+    run_curses()
