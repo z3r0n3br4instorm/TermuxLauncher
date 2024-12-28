@@ -28,11 +28,8 @@ def get_cell_signal():
 
 def get_battery_percentage():
     try:
-        # Run the termux-battery-status command
-        result = subprocess.run(["termux-battery-status"], capture_output=True, text=True, check=True)
-        battery_data = json.loads(result.stdout)
-        print(int(battery_data.get("percentage", 0)))
-        return (int(battery_data.get("percentage", 0)))
+        result = subprocess.run(["sudo", "dumpsys", "telephony.registry"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        return  int(result)
     except:
         return 0
 
