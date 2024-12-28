@@ -13,7 +13,7 @@ def search_package(package_name):
             return None
     except subprocess.CalledProcessError as e:
         print(f"Error searching package {package_name}: {e}")
-        return None
+        return package_name
 
 def launch_package(package_name):
     main_intent = search_package(package_name)
