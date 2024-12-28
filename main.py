@@ -1,5 +1,7 @@
 import os
+import time
 import subprocess
+import threading
 
 class Launcher:
     def __init__(self):
@@ -7,6 +9,12 @@ class Launcher:
 
     def start_tmux(self):
         subprocess.run(f"tmux new-session -d -s {self.tmux_session}", shell=True)
+
+    def batteryThread(self):
+        while True:
+            os.system("python battery.py > battery.txt")
+            time.sleep(10)
+
 
     def split_panes(self):
         subprocess.run(f"tmux split-window -v -t {self.tmux_session}", shell=True)
@@ -39,6 +47,8 @@ class Launcher:
         self.resize_panes()
         self.send_commands()
         self.attach_tmux()
+        batterThread = threading.Thread(target=self.batteryThread)
+        batterThread.start()
 
 if __name__ == "__main__":
     launcher = Launcher()

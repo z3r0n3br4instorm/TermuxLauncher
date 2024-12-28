@@ -32,7 +32,6 @@ def get_cell_signal():
 def get_battery_percentage():
     if True:
         try:
-            os.system("python battery.py > battery.txt")
             data = open("battery.txt", "r")
             return (int(data.read()))
         except:
