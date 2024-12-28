@@ -39,7 +39,7 @@ def get_battery_percentage():
 
 def draw_bar(percentage, bar_length=30, color_pair=1):
     filled_length = int(bar_length * percentage / 100)
-    bar = "[" + "=" * filled_length + "-" * (bar_length - filled_length) + "]"
+    bar = "[" + "/" * filled_length + "-" * (bar_length - filled_length) + "]"
     return bar, filled_length
 
 def center_text(stdscr, text, row, color_pair=1):
@@ -73,8 +73,6 @@ def main(stdscr):
 
         # Center header text
         center_text(stdscr, "-= HUD_SYSMON v1.0 =-", 0, 1)
-
-        # Display the bars with colors based on percentage
         cpu_bar, cpu_filled = draw_bar(cpu_percent)
         color = 3 if cpu_percent > 80 else 2
         center_text(stdscr, f"CPU   : {cpu_bar} {cpu_percent:06.2f}%", 2, color)
@@ -94,8 +92,6 @@ def main(stdscr):
         wifi_bar, wifi_filled = draw_bar(wifi_percent)
         color = 2 if wifi_percent > 50 else 3
         center_text(stdscr, f"CELL  : {wifi_bar} {wifi_percent:06.2f}%", 6, color)
-
-        # Footer sci-fi styled
         center_text(stdscr, " ztOS HUD ", 8, 4)
 
         stdscr.refresh()
