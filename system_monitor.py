@@ -37,7 +37,6 @@ def get_battery_percentage():
             return (int(data.read()))
         except:
             return 10
-        time.sleep(1)
 
 
 def draw_bar(percentage, bar_length=30):
