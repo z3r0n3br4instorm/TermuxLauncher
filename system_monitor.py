@@ -18,10 +18,9 @@ def get_gpu_usage():
 
 def get_cell_signal():
     try:
-        user_env = os.environ.copy()
         command = ["python", "signalStrength.py"]
         try:
-            result = subprocess.run(command, capture_output=True, text=True, check=True, env=user_env)
+            result = subprocess.run(command, capture_output=True, text=True, check=True)
             return int(float(result.stdout))
         except:
             return 0
@@ -33,9 +32,10 @@ def get_cell_signal():
 
 def get_battery_percentage():
     global battery_percentage
+    user_env = {"PATH": "/data/data/com.termux/files/usr/bin"}
     while True:
         try:
-            result = subprocess.run(["python", "battery.py"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+            result = subprocess.run(["python", "battery.py"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, env=user_env)
             battery_percentage = int(result.stdout)  # Update global variable
         except:
             battery_percentage = 0  # Set to 0 in case of error
