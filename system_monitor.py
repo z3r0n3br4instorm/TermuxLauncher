@@ -53,6 +53,7 @@ def center_text(stdscr, text, row):
 
 
 def main(stdscr):
+    global battery_percentage
     curses.curs_set(0)
     stdscr.clear()
 
