@@ -12,7 +12,7 @@ def get_gpu_usage():
         return 0
 
 
-def get_wifi_signal():
+def get_cell_signal():
     try:
         return 0
     except:

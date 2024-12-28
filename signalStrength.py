@@ -7,9 +7,7 @@ def rsrp_to_percentage(rsrp):
     max_rsrp = -50
     return max(0, min(100, ((rsrp - min_rsrp) / (max_rsrp - min_rsrp)) * 100))
 
-# Function to get the rsrp value from the adb command output
 def get_rsrp_from_adb():
-    # Run the adb command to get signal strength data
     result = subprocess.run(["sudo", "dumpsys", "telephony.registry"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     if result.returncode == 0:
         # Find the rsrp value using regex
@@ -27,6 +25,6 @@ def get_rsrp_from_adb():
 rsrp = get_rsrp_from_adb()
 if rsrp is not None:
     percentage = rsrp_to_percentage(rsrp)
-    print(f"Signal Strength: {percentage}%")
+    print(f"{percentage}")
 else:
-    print("Unable to get RSRP.")
+    print("0")
