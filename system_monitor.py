@@ -18,9 +18,10 @@ def get_gpu_usage():
 
 def get_cell_signal():
     try:
+        user_env = os.environ.copy()
         command = ["python", "signalStrength.py"]
         try:
-            result = subprocess.run(command, capture_output=True, text=True, check=True)
+            result = subprocess.run(command, capture_output=True, text=True, check=True, env=user_env)
             return int(float(result.stdout))
         except:
             return 0
