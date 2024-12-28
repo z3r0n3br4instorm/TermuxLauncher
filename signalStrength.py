@@ -10,7 +10,7 @@ def rsrp_to_percentage(rsrp):
 # Function to get the rsrp value from the adb command output
 def get_rsrp_from_adb():
     # Run the adb command to get signal strength data
-    result = subprocess.run(["adb", "shell", "dumpsys", "telephony.registry"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    result = subprocess.run(["sudo", "dumpsys", "telephony.registry"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     if result.returncode == 0:
         # Find the rsrp value using regex
         match = re.search(r"rsrp=(-?\d+)", result.stdout)
