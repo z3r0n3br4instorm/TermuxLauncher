@@ -59,17 +59,15 @@ def main(stdscr):
         battery_percent = get_battery_percentage()
         wifi_percent = get_cell_signal()
 
-        # Center the HUD title
         center_text(stdscr, "HUD_SYSMON", 0)
 
-        # Display the bars and center each line
         center_text(stdscr, f"CPU          : {draw_bar(cpu_percent)} ", 1)
         center_text(stdscr, f"GPU          : {draw_bar(gpu_percent)} ", 2)
         center_text(stdscr, f"RAM          : {draw_bar(ram_percent)} ", 3)
         center_text(stdscr, f"BATT         : {draw_bar(battery_percent)} ", 4)
         center_text(stdscr, f"CELL    : {draw_bar(wifi_percent)} ", 5)
 
-        stdscr.refresh()
+        # stdscr.refresh()
 
         time.sleep(1)
 
