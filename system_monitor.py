@@ -70,6 +70,7 @@ def main(stdscr):
         # stdscr.refresh()
         # time.sleep(1)
         print(cpu_percent, gpu_percent, ram_percent, battery_percent, wifi_percent)
+        time.sleep(1)
 
 
 if __name__ == "__main__":
