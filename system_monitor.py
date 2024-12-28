@@ -3,6 +3,7 @@ import psutil
 import subprocess
 import time
 import json
+import os
 import threading
 
 global battery_percentage
@@ -32,14 +33,16 @@ def get_cell_signal():
 
 def get_battery_percentage():
     global battery_percentage
-    user_env = {"PATH": "/data/data/com.termux/files/usr/bin"}
     while True:
         try:
-            result = subprocess.run(["python", "battery.py"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, env=user_env)
-            battery_percentage = int(result.stdout)  # Update global variable
+            # result = subprocess.run(["python", "battery.py"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+            # battery_percentage = int(result.stdout)
+            os.system("python battery.py > battery.txt")
+            with open("battery.txt", "r") as file:
+                battery_percentage = int(file.read())
         except:
-            battery_percentage = 0  # Set to 0 in case of error
-        time.sleep(1)  # Update every second
+            battery_percentage = 0
+        time.sleep(1)
 
 
 def draw_bar(percentage, bar_length=30):
