@@ -72,7 +72,7 @@ def main(stdscr):
         battery_percent = get_battery_percentage()
 
         # Center header text
-        center_text(stdscr, "-= HUD_SYSMON v1.0 =-", 0, 1)
+        center_text(stdscr, "HUD_SYSMON v1.0", 0, 1)
         cpu_bar, cpu_filled = draw_bar(cpu_percent)
         color = 3 if cpu_percent > 80 else 2
         center_text(stdscr, f"CPU   : {cpu_bar} {cpu_percent:06.2f}%", 2, color)
