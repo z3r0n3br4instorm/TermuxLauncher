@@ -57,7 +57,7 @@ def main(stdscr):
         cpu_percent = psutil.cpu_percent(interval=0.1)
         gpu_percent = get_gpu_usage()
         ram_percent = psutil.virtual_memory().percent
-        battery_percent = get_battery_percentage()
+        # battery_percent = get_battery_percentage()
         wifi_percent = get_cell_signal()
 
         # Center the HUD title
