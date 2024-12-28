@@ -5,6 +5,7 @@ import time
 import json
 import threading
 
+global battery_percentage
 battery_percentage = 0  # Global variable to store battery percentage
 
 
@@ -76,7 +77,7 @@ def main(stdscr):
         center_text(stdscr, f"GPU          : {draw_bar(gpu_percent)} ", 2)
         center_text(stdscr, f"RAM          : {draw_bar(ram_percent)} ", 3)
         center_text(stdscr, f"BATT         : {draw_bar(battery_percentage)} ", 4)
-        center_text(stdscr, f"CELL    : {draw_bar(wifi_percent)} ", 5)
+        center_text(stdscr, f"CELL         : {draw_bar(wifi_percent)} ", 5)
 
         stdscr.refresh()
 
