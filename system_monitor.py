@@ -17,8 +17,8 @@ def get_cell_signal():
         command = ["python", "signalStrength.py"]
         try:
             result = subprocess.run(command, capture_output=True, text=True, check=True)
-            return int((result.stdout))
-        except subprocess.CalledProcessError as e:
+            return int(float(result.stdout))
+        except:
             return 0
         return 0
     except:
