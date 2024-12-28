@@ -30,7 +30,7 @@ def get_cell_signal():
 
 
 def get_battery_percentage():
-    while True:
+    if True:
         try:
             os.system("python battery.py > battery.txt")
             data = open("battery.txt", "r")
@@ -55,10 +55,6 @@ def center_text(stdscr, text, row):
 def main(stdscr):
     curses.curs_set(0)
     stdscr.clear()
-
-    # Start the battery percentage in a separate thread
-    battery_thread = threading.Thread(target=get_battery_percentage)
-    battery_thread.daemon = True  # Ensure the thread exits when the main program exits
     battery_thread.start()
 
     while True:
@@ -74,7 +70,7 @@ def main(stdscr):
         center_text(stdscr, f"CPU          : {draw_bar(cpu_percent)} ", 1)
         center_text(stdscr, f"GPU          : {draw_bar(gpu_percent)} ", 2)
         center_text(stdscr, f"RAM          : {draw_bar(ram_percent)} ", 3)
-        center_text(stdscr, f"BATT         : {draw_bar(battery_percentage)} ", 4)
+        center_text(stdscr, f"BATT         : {draw_bar(get_battery_percentage())} ", 4)
         center_text(stdscr, f"CELL         : {draw_bar(wifi_percent)} ", 5)
 
         stdscr.refresh()
