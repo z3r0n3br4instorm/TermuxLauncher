@@ -6,7 +6,6 @@ class Launcher:
         self.tmux_session = "ztOS_HUD_TUI"
 
     def start_tmux(self):
-        subprocess.run("stty cols 64 rows 37", shell=True)
         subprocess.run(f"tmux new-session -d -s {self.tmux_session}", shell=True)
 
     def split_panes(self):

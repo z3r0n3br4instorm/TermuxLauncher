@@ -3,6 +3,10 @@ from OpenGL.GLUT import *
 from OpenGL.GLU import *
 
 def get_gpu_info():
+    # Ensure that GLUT is available before calling it
+    if not hasattr(glutInit, '__call__'):
+        raise RuntimeError("GLUT is not available. Make sure you're running this on a platform with OpenGL support.")
+
     # Initialize a GLUT context to access OpenGL
     glutInit()
     glutCreateWindow("GPU Info Window")  # Open a window for OpenGL (hidden)
