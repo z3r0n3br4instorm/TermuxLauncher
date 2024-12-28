@@ -41,7 +41,7 @@ def getPackageNAme(appName):
         return None
 
 while True:
-    app_name = input("Launch App > ")
+    app_name = input("> ")
     # find package name
     package_name = getPackageNAme(app_name)
     launch_package(package_name)
