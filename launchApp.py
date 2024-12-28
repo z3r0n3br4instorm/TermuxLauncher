@@ -1,4 +1,22 @@
 import subprocess
+import json
+
+def get_battery_percentage():
+    try:
+        # Run the termux-battery-status command and capture the output
+        command = "termux-battery-status"
+        result = subprocess.check_output(command, shell=True, text=True)
+        battery_info = json.loads(result)
+        percentage = battery_info.get("percentage", None)
+
+        if percentage is not None:
+            print(f"Battery percentage: {percentage}%")
+        else:
+            print("Battery percentage not found in the output.")
+    except subprocess.CalledProcessError as e:
+        print(f"Error running termux-battery-status: {e}")
+    except json.JSONDecodeError:
+        print("Error decoding the JSON output from termux-battery-status")
 
 def search_package(package_name):
     try:
@@ -41,7 +59,11 @@ def getPackageNAme(appName):
         return None
 
 while True:
+    # Get the battery percentage
+    get_battery_percentage()
+
+    # Proceed with launching apps
     app_name = input("Launch App > ")
-    # find package name
+    # Find package name
     package_name = getPackageNAme(app_name)
     launch_package(package_name)
