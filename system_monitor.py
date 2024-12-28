@@ -14,11 +14,7 @@ def get_gpu_usage():
 
 def get_wifi_signal():
     try:
-        result = subprocess.check_output("cat /proc/net/wireless", shell=True).decode()
-        for line in result.splitlines():
-            if "wlan0" in line:
-                parts = line.split()
-                return float(parts[2].strip("."))
+        return 0
     except:
         pass
     return 0
