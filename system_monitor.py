@@ -29,6 +29,13 @@ def get_cell_signal():
     return 0
 
 
+def get_battery_temperature():
+    try:
+        data = subprocess.run("sudo", "cat", "/sys/class/power_supply/battery/temp", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        return int(data.stdout)
+    except:
+        return 0
+
 def get_battery_percentage():
     if True:
         try:
@@ -69,6 +76,7 @@ def main(stdscr):
         center_text(stdscr, f"RAM          : {draw_bar(ram_percent)} ", 3)
         center_text(stdscr, f"BATT         : {draw_bar(get_battery_percentage())} ", 4)
         center_text(stdscr, f"CELL         : {draw_bar(wifi_percent)} ", 5)
+        center_text(stdscr, f"TEMP         : {get_battery_temperature()} ", 6)
 
         stdscr.refresh()
 

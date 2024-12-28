@@ -25,6 +25,7 @@ class Launcher:
         subprocess.run(f"tmux resize-pane -t {self.tmux_session}:0.1 -y 20", shell=True)  # Resize pane 1
         subprocess.run(f"tmux resize-pane -t {self.tmux_session}:0.2 -y 15", shell=True)  # Resize pane 2
 
+
     def send_commands(self):
         # Send commands to each pane
 
