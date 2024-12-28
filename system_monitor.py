@@ -29,6 +29,7 @@ def get_cell_signal():
 def get_battery_percentage():
     try:
         result = subprocess.run(["python", "battery.py"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        print(result)
         return  int(result.stdout)
     except:
         return 0
