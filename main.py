@@ -27,7 +27,7 @@ class Launcher:
         subprocess.run(f"tmux send-keys -t {self.tmux_session}:0.1 'sudo python system_monitor.py' C-m", shell=True)
 
         # Pane 2: App Launcher
-        subprocess.run(f"tmux send-keys -t {self.tmux_session}:0.2 'bash' C-m", shell=True)
+        subprocess.run(f"tmux send-keys -t {self.tmux_session}:0.2 'python launchApp.py' C-m", shell=True)
 
     def attach_tmux(self):
         # Attach to the tmux session
