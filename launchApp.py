@@ -17,7 +17,7 @@ def search_package(package_name):
 
 def launch_package(package_name):
     main_intent = search_package(package_name)
-    if main_intent:
+    if main_intent and len(main_intent.split(".")):
         try:
             launch_command = f"am start {main_intent}"
             subprocess.run(launch_command, shell=True)
