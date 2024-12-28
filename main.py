@@ -24,7 +24,7 @@ class Launcher:
         subprocess.run(f"tmux send-keys -t {self.tmux_session}:0.0 'tclock' C-m", shell=True)
 
         # Pane 1: System Monitor
-        subprocess.run(f"tmux send-keys -t {self.tmux_session}:0.1 'python3 system_monitor.py' C-m", shell=True)
+        subprocess.run(f"tmux send-keys -t {self.tmux_session}:0.1 'sudo python system_monitor.py' C-m", shell=True)
 
         # Pane 2: App Launcher
         subprocess.run(f"tmux send-keys -t {self.tmux_session}:0.2 'bash' C-m", shell=True)
