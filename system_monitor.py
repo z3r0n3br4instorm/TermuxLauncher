@@ -14,6 +14,12 @@ def get_gpu_usage():
 
 def get_cell_signal():
     try:
+        command = ["python", "signalStrength.py"]
+        try:
+            result = subprocess.run(command, capture_output=True, text=True, check=True)
+            return int((result.stdout))
+        except subprocess.CalledProcessError as e:
+            return 0
         return 0
     except:
         pass
@@ -43,7 +49,7 @@ def main(stdscr):
         ram_percent = psutil.virtual_memory().percent
         battery = psutil.sensors_battery()
         battery_percent = battery.percent if battery else 0
-        wifi_percent = get_wifi_signal()
+        wifi_percent = get_cell_signal()
 
         # Center the HUD title
         center_text(stdscr, "HUD_SYSMON", 0)

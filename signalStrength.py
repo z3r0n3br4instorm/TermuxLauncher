@@ -1,7 +1,6 @@
 import subprocess
 import re
 
-# Function to convert rsrp to percentage
 def rsrp_to_percentage(rsrp):
     min_rsrp = -120
     max_rsrp = -50
@@ -21,7 +20,6 @@ def get_rsrp_from_adb():
         print("Error running adb command:", result.stderr)
         return None
 
-# Example usage
 rsrp = get_rsrp_from_adb()
 if rsrp is not None:
     percentage = rsrp_to_percentage(rsrp)
