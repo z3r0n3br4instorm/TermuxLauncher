@@ -2,6 +2,7 @@ import curses
 import psutil
 import subprocess
 import time
+import json
 
 
 def get_gpu_usage():
@@ -26,6 +27,16 @@ def get_cell_signal():
     return 0
 
 
+def get_battery_percentage():
+    try:
+        # Run the termux-battery-status command
+        result = subprocess.run(["termux-battery-status"], capture_output=True, text=True, check=True)
+        battery_data = json.loads(result.stdout)
+        return battery_data.get("percentage", 0)
+    except:
+        return 0
+
+
 def draw_bar(percentage, bar_length=30):
     filled_length = int(bar_length * percentage / 100)
     bar = "[" + "\\" * filled_length + " " * (bar_length - filled_length) + "]"
@@ -47,8 +58,7 @@ def main(stdscr):
         cpu_percent = psutil.cpu_percent(interval=0.1)
         gpu_percent = get_gpu_usage()
         ram_percent = psutil.virtual_memory().percent
-        battery = psutil.sensors_battery()
-        battery_percent = battery.percent if battery else 0
+        battery_percent = get_battery_percentage()
         wifi_percent = get_cell_signal()
 
         # Center the HUD title
