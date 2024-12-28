@@ -19,7 +19,7 @@ def launch_package(package_name):
     main_intent = search_package(package_name)
     if main_intent:
         try:
-            launch_command = f"am start -n {main_intent}"
+            launch_command = f"am start {main_intent}"
             subprocess.run(launch_command, shell=True)
             print(f"Launched {package_name} successfully.")
         except subprocess.CalledProcessError as e:
