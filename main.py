@@ -4,6 +4,7 @@ import subprocess
 class Launcher:
     def __init__(self):
         self.tmux_session = "ztOS_HUD_TUI"
+        os.system('export PATH="$HOME/.cargo/bin:$PATH"')
 
     def start_tmux(self):
         subprocess.run(f"tmux new-session -d -s {self.tmux_session}", shell=True)
