@@ -6,8 +6,6 @@ import json
 import os
 import threading
 
-global battery_percentage
-battery_percentage = 0  # Global variable to store battery percentage
 
 
 def get_gpu_usage():
@@ -32,16 +30,13 @@ def get_cell_signal():
 
 
 def get_battery_percentage():
-    global battery_percentage
     while True:
         try:
-            # result = subprocess.run(["python", "battery.py"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-            # battery_percentage = int(result.stdout)
             os.system("python battery.py > battery.txt")
-            with open("battery.txt", "r") as file:
-                battery_percentage = int(file.read())
+            data = open("battery.txt", "r")
+            return (int(data.read()))
         except:
-            battery_percentage = 0
+            return 10
         time.sleep(1)
 
 
@@ -58,7 +53,6 @@ def center_text(stdscr, text, row):
 
 
 def main(stdscr):
-    global battery_percentage
     curses.curs_set(0)
     stdscr.clear()
 
