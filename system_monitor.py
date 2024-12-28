@@ -59,17 +59,17 @@ def main(stdscr):
         battery_percent = get_battery_percentage()
         wifi_percent = get_cell_signal()
 
-        center_text(stdscr, "HUD_SYSMON", 0)
+        # center_text(stdscr, "HUD_SYSMON", 0)
 
-        center_text(stdscr, f"CPU          : {draw_bar(cpu_percent)} ", 1)
-        center_text(stdscr, f"GPU          : {draw_bar(gpu_percent)} ", 2)
-        center_text(stdscr, f"RAM          : {draw_bar(ram_percent)} ", 3)
-        center_text(stdscr, f"BATT         : {draw_bar(battery_percent)} ", 4)
-        center_text(stdscr, f"CELL    : {draw_bar(wifi_percent)} ", 5)
+        # center_text(stdscr, f"CPU          : {draw_bar(cpu_percent)} ", 1)
+        # center_text(stdscr, f"GPU          : {draw_bar(gpu_percent)} ", 2)
+        # center_text(stdscr, f"RAM          : {draw_bar(ram_percent)} ", 3)
+        # center_text(stdscr, f"BATT         : {draw_bar(battery_percent)} ", 4)
+        # center_text(stdscr, f"CELL    : {draw_bar(wifi_percent)} ", 5)
 
         # stdscr.refresh()
-
-        time.sleep(1)
+        # time.sleep(1)
+        print(cpu_percent, gpu_percent, ram_percent, battery_percent, wifi_percent)
 
 
 if __name__ == "__main__":
