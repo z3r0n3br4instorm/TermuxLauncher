@@ -55,7 +55,6 @@ def center_text(stdscr, text, row):
 def main(stdscr):
     curses.curs_set(0)
     stdscr.clear()
-    battery_thread.start()
 
     while True:
         # Get system metrics
