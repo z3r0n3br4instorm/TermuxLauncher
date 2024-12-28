@@ -77,26 +77,26 @@ def main(stdscr):
         # Display the bars with colors based on percentage
         cpu_bar, cpu_filled = draw_bar(cpu_percent)
         color = 3 if cpu_percent > 80 else 2
-        center_text(stdscr, f"CPU   : {cpu_bar} {cpu_percent}%", 2, color)
+        center_text(stdscr, f"CPU   : {cpu_bar} {cpu_percent:06.2f}%", 2, color)
 
         gpu_bar, gpu_filled = draw_bar(gpu_percent)
         color = 3 if gpu_percent > 80 else 2
-        center_text(stdscr, f"GPU   : {gpu_bar} {gpu_percent}%", 3, color)
+        center_text(stdscr, f"GPU   : {gpu_bar} {gpu_percent:06.2f}%", 3, color)
 
         ram_bar, ram_filled = draw_bar(ram_percent)
         color = 3 if ram_percent > 80 else 2
-        center_text(stdscr, f"RAM   : {ram_bar} {ram_percent}%", 4, color)
+        center_text(stdscr, f"RAM   : {ram_bar} {ram_percent:06.2f}%", 4, color)
 
         battery_bar, battery_filled = draw_bar(battery_percent)
         color = 3 if battery_percent < 20 else 2
-        center_text(stdscr, f"BATT  : {battery_bar} {battery_percent}%", 5, color)
+        center_text(stdscr, f"BATT  : {battery_bar} {battery_percent:06.2f}%", 5, color)
 
         wifi_bar, wifi_filled = draw_bar(wifi_percent)
         color = 2 if wifi_percent > 50 else 3
-        center_text(stdscr, f"CELL  : {wifi_bar} {wifi_percent}%", 6, color)
+        center_text(stdscr, f"CELL  : {wifi_bar} {wifi_percent:06.2f}%", 6, color)
 
         # Footer sci-fi styled
-        center_text(stdscr, "-=-=- System Monitoring Console -=-=-", 8, 4)
+        center_text(stdscr, " ztOS HUD ", 8, 4)
 
         stdscr.refresh()
         time.sleep(1)
